@@ -24,13 +24,11 @@ db.select('*').from('users').then(data => {
     console.log(data);
 });
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 
-app.get('/', (req, res) => {
-    res.send('success');
-})
+app.get('/', (req, res) => { res.send('it is working!') })
 
 app.post('/signin', (req, res) => { signin.handleSignin(req, res, db, bcrypt)})
 
