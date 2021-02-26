@@ -1,8 +1,6 @@
 const express = require('express');
-const app = express();
 const bcrypt = require('bcrypt-nodejs')
 const cors = require('cors');
-const { Connection } = require('pg');
 const knex = require('knex')
 
 const register = require('./controllers/register');
@@ -13,16 +11,12 @@ const image = require('./controllers/image')
 const db = knex({
     client: 'pg',
     connection: {
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
+        host : '127.0.0.1',
+        user : 'aneagoie',
+        password : '',
+        database : 'smart-brain'
       }
-    }
-});
-
-db.select('*').from('users').then(data => {
-    console.log(data);
-});
+    });
 
 const app = express();
 
@@ -44,3 +38,4 @@ app.put('/image', (req, res) => { image.handleImage(req, res, db)})
 app.listen(process.env.PORT || 3000, () => {
     console.log(`app is running on ${process.env.PORT}`);
 })
+
